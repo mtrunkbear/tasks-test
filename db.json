@@ -1,0 +1,26 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "description": "Tarea 1",
+      "creationDate": "2023-08-20",
+      "dueDate": "2023-08-25"
+    },
+    {
+      "id": 2,
+      "description": "Tarea 2",
+      "creationDate": "2023-08-21",
+      "dueDate": "2023-08-26"
+    },
+    {
+      "description": "AASDASDAS",
+      "dueDate": "ASDAS",
+      "id": 3
+    },
+    {
+      "description": "Descripcion de la tarea",
+      "dueDate": "aslslalas",
+      "id": 4
+    }
+  ]
+}
