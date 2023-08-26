@@ -7,7 +7,7 @@ This is a task management application built using React.js and Redux for state m
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/mtrunkbear/tasks-test.git
 ```
 
 2. Navigate to the project directory:
