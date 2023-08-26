@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchTasks, addTask } from "../features/tasks/taskSlice";
 import TaskItem from "./TaskItem";
 import AddTaskForm from "./AddTaskForm";
-import { Button, Paper } from "@mui/material";
-import Modal from "@mui/material/Modal";
+import { Button, Paper, Modal } from "@mui/material";
 import { styled } from "@mui/system";
 import { AddOutlined } from "@mui/icons-material";
+import { Task } from "../types";
 
 const style = {
   position: "absolute",
-  color:"black",
+  color: "black",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -21,29 +21,27 @@ const style = {
   p: 4,
 };
 
-const TaskList = () => {
+const TaskList: React.FC = () => {
   const dispatch = useDispatch();
-  const tasks = useSelector((state) => state.tasks);
-  const [filter, setFilter] = useState("default");
-  const [open, setOpen] = useState(false);
+  const tasks = useSelector((state: { tasks: Task[] }) => state.tasks);
+  const [filter, setFilter] = useState<string>("default");
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    dispatch(fetchTasks());
+    dispatch(fetchTasks() as any);
   }, [dispatch]);
-
-  const handleAddTask = (task) => {
-    dispatch(addTask(task));
-  };
 
   const filteredTasks = [...tasks].sort((a, b) => {
     if (filter === "dateCreated") {
-      return new Date(b.creationDate) - new Date(a.creationDate);
+      return (
+        new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime()
+      );
     }
     if (filter === "dateDue") {
-      return new Date(a.dueDate) - new Date(b.dueDate);
+      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
     }
     if (filter === "state") {
-      return b.completed - a.completed;
+      return b.completed === a.completed ? 0 : b.completed ? -1 : 1;
     }
     return 0;
   });
@@ -63,9 +61,17 @@ const TaskList = () => {
       <AddButton onClick={() => setOpen(true)}>
         <AddOutlined />
       </AddButton>
-      {filteredTasks.map((task) => (
-        <TaskItem key={task.id} task={task} />
-      ))}
+      {filteredTasks.map(
+        ({ id, dueDate, creationDate, description, completed }) => (
+          <TaskItem
+            key={id}
+            description={description}
+            dueDate={dueDate as string}
+            creationDate={creationDate}
+            completed={completed}
+          />
+        )
+      )}
       <Modal
         open={open}
         onClose={() => setOpen(!open)}
@@ -73,7 +79,7 @@ const TaskList = () => {
         aria-describedby="modal-modal-description"
       >
         <Paper sx={style}>
-          <AddTaskForm onAddTask={handleAddTask} />
+          <AddTaskForm />
         </Paper>
       </Modal>
     </div>
@@ -88,7 +94,7 @@ const AddButton = styled(Button)(({ theme }) => ({
   width: "100%",
   color: "black",
   "&:hover": {
-    color: "white", // Cambia este color al color deseado para el hover
+    color: "white",
   },
   padding: theme.spacing(2),
   marginBottom: theme.spacing(2),

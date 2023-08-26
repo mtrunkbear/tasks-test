@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addTask } from '../features/tasks/taskSlice';
+import React, { useState, FormEvent } from "react";
+import { useDispatch } from "react-redux";
+import { addTask } from "../features/tasks/taskSlice";
 
-const AddTaskForm = () => {
+const AddTaskForm: React.FC = ({}) => {
   const dispatch = useDispatch();
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
+  const [description, setDescription] = useState<string>("");
+  const [dueDate, setDueDate] = useState<string>("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     if (description && dueDate) {
-      dispatch(addTask({ description, dueDate }));
-      setDescription('');
-      setDueDate('');
+      dispatch(
+        addTask({
+          description,
+          dueDate: new Date(dueDate),
+          creationDate: new Date(),
+          completed: "pending",
+        }) as any
+      );
+      setDescription("");
+      setDueDate("");
     }
   };
 

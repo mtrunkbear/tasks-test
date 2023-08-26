@@ -4,29 +4,33 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Checkbox, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/system";
-import emotionStyled  from "@emotion/styled";
+import emotionStyled from "@emotion/styled";
+import { Task } from "../types";
+import { formatDate } from "../utils/datetime";
 
-const TaskItem = ({ task }) => {
-  const getTaskState = () => {
+const TaskItem = ({ completed, description, dueDate }: Task) => {
+  const getTaskState = ({
+    dueDate,
+  }: any): "completed" | "overdue" | "pending" => {
     const today = new Date();
-    const dueDate = new Date(task.dueDate);
+    dueDate = new Date(dueDate);
 
-    if (task.completed) {
+    if (completed) {
       return "completed";
     } else if (dueDate < today) {
       return "overdue";
-    } else if (dueDate >= today) {
+    } else {
       return "pending";
     }
   };
 
-  const state = getTaskState();
+  const state = getTaskState({ dueDate });
 
   return (
     <TaskItemContainer elevation={2}>
-      <Checkbox checked={task.completed} />
-      <TaskDescription>{task.description}</TaskDescription>
-      <DateInput type="date" value={task.creationDate}  />
+      <Checkbox checked={completed == "completed"} />
+      <TaskDescription>{description}</TaskDescription>
+      <DateInput type="date" value={formatDate(dueDate as string)} />
       {TaskIcons[state]}
     </TaskItemContainer>
   );
@@ -35,11 +39,11 @@ const TaskItem = ({ task }) => {
 export default TaskItem;
 
 const DateInput = emotionStyled.input`
-  border: "none",
-  outline: "none",
-  backgroundColor: "transparent",
-  color: "inherit",
-  fontSize: "inherit",
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: inherit;
+  font-size: inherit;
 `;
 
 const TaskItemContainer = styled(Paper)(({ theme }) => ({
@@ -54,7 +58,7 @@ const TaskDescription = styled(Typography)(({ theme }) => ({
   marginRight: theme.spacing(2),
 }));
 
-const TaskIcons = {
+const TaskIcons: Record<string, React.ReactNode> = {
   completed: <CheckCircleIcon />,
   overdue: <CancelIcon />,
   pending: <AccessTimeIcon />,

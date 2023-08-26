@@ -1,36 +1,22 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "description": "Tarea 1",
-      "creationDate": "2023-08-20",
-      "dueDate": "2023-08-25"
+      "description": "asdasdas",
+      "dueDate": "2023-08-30T00:00:00.000Z",
+      "creationDate": "2023-08-26T15:20:40.102Z",
+      "id": 1
     },
     {
-      "id": 2,
-      "description": "Tarea 2",
-      "creationDate": "2023-08-21",
-      "dueDate": "2023-08-26"
+      "description": "121212",
+      "dueDate": "2023-08-31T00:00:00.000Z",
+      "creationDate": "2023-08-26T15:23:41.761Z",
+      "id": 2
     },
     {
-      "description": "AASDASDAS",
-      "dueDate": "ASDAS",
+      "description": "asdasdas",
+      "dueDate": "2023-08-08T00:00:00.000Z",
+      "creationDate": "2023-08-26T15:23:49.226Z",
       "id": 3
-    },
-    {
-      "description": "Descripcion de la tarea",
-      "dueDate": "aslslalas",
-      "id": 4
-    },
-    {
-      "description": "Adaskksda",
-      "dueDate": "2023-08-24",
-      "id": 5
-    },
-    {
-      "description": "asdasda",
-      "dueDate": "2023-09-03",
-      "id": 6
     }
   ]
 }
