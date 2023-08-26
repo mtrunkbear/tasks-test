@@ -49,7 +49,10 @@ const TaskItem = ({ id, completed, description, dueDate }: Task) => {
   };
   const handleDueDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
-      changeTaskDueDate({ taskId: id, newDueDate: event.target.value }) as any
+      changeTaskDueDate({
+        taskId: id as string,
+        newDueDate: event.target.value,
+      }) as any
     );
   };
   return (
