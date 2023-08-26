@@ -26,9 +26,18 @@ const TaskItem = ({ completed, description, dueDate }: Task) => {
 
   const state = getTaskState({ dueDate });
 
+  const taskBackgroundColor = {
+    completed: "rgba(0, 255, 0, 0.9)",
+    overdue: "rgba(255, 0, 0, 0.9)",
+    pending: "rgba(255, 255, 0, 0.9)",
+  };
+
   return (
-    <TaskItemContainer elevation={2}>
-      <Checkbox checked={completed == "completed"} />
+    <TaskItemContainer
+      style={{ backgroundColor: taskBackgroundColor[state] }}
+      elevation={2}
+    >
+      <Checkbox checked={completed} />
       <TaskDescription>{description}</TaskDescription>
       <DateInput type="date" value={formatDate(dueDate as string)} />
       {TaskIcons[state]}

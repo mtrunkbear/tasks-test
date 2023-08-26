@@ -2,7 +2,7 @@ export interface Task {
   id?: string;
   description: string;
   dueDate: string | Date;
-  completed: "completed" | "overdue" | "pending";
+  completed: boolean;
   creationDate: string | Date;
 }
 

@@ -16,8 +16,7 @@ const AddTaskForm: React.FC = ({}) => {
           description,
           dueDate: new Date(dueDate),
           creationDate: new Date(),
-          completed: "pending",
-        }) as any
+        } as any) as any
       );
       setDescription("");
       setDueDate("");
