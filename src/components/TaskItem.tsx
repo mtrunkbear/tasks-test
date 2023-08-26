@@ -60,7 +60,7 @@ const TaskItem = ({ id, completed, description, dueDate }: Task) => {
       style={{ backgroundColor: taskBackgroundColor[state] }}
       elevation={2}
     >
-      <Checkbox checked={completed} onClick={handleToggleCompleted} />
+      <Checkbox checked={completed||false} onClick={handleToggleCompleted} />
       <TaskDescription>{description}</TaskDescription>
       <DateInput
         type="date"
