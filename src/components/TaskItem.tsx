@@ -7,8 +7,24 @@ import { styled } from "@mui/system";
 import emotionStyled from "@emotion/styled";
 import { Task } from "../types";
 import { formatDate } from "../utils/datetime";
+import { useDispatch } from "react-redux";
+import {
+  toggleTaskCompleted,
+  changeTaskDueDate,
+} from "../features/tasks/taskSlice";
 
-const TaskItem = ({ completed, description, dueDate }: Task) => {
+const TaskItem = ({ id, completed, description, dueDate }: Task) => {
+  const dispatch = useDispatch();
+
+  const handleToggleCompleted = () => {
+    dispatch(
+      toggleTaskCompleted({
+        taskId: id as string,
+        completed: !completed,
+      }) as any
+    ); // Llama a la acción para cambiar el estado completed
+  };
+
   const getTaskState = ({
     dueDate,
   }: any): "completed" | "overdue" | "pending" => {
@@ -31,15 +47,23 @@ const TaskItem = ({ completed, description, dueDate }: Task) => {
     overdue: "rgba(255, 0, 0, 0.9)",
     pending: "rgba(255, 255, 0, 0.9)",
   };
-
+  const handleDueDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      changeTaskDueDate({ taskId: id, newDueDate: event.target.value }) as any
+    );
+  };
   return (
     <TaskItemContainer
       style={{ backgroundColor: taskBackgroundColor[state] }}
       elevation={2}
     >
-      <Checkbox checked={completed} />
+      <Checkbox checked={completed} onClick={handleToggleCompleted} />
       <TaskDescription>{description}</TaskDescription>
-      <DateInput type="date" value={formatDate(dueDate as string)} />
+      <DateInput
+        type="date"
+        value={formatDate(dueDate as string)}
+        onChange={handleDueDateChange}
+      />
       {TaskIcons[state]}
     </TaskItemContainer>
   );

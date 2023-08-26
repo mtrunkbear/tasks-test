@@ -49,15 +49,18 @@ const TaskList: React.FC = () => {
   return (
     <div>
       <h1>Task List</h1>
-      <label>
-        Filter & Sort:
-        <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-          <option value="default">Default</option>
-          <option value="dateCreated">Date Created (Newest)</option>
-          <option value="dateDue">Due Date (Earliest)</option>
-          <option value="state">State (Priority)</option>
-        </select>
-      </label>
+      <div style={{margin:"24px"}}>
+        <label>
+          Filter & Sort:
+          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option value="default">Default</option>
+            <option value="dateCreated">Date Created (Newest)</option>
+            <option value="dateDue">Due Date (Earliest)</option>
+            <option value="state">State (Priority)</option>
+          </select>
+        </label>
+      </div>
+
       <AddButton onClick={() => setOpen(true)}>
         <AddOutlined />
       </AddButton>
@@ -65,6 +68,7 @@ const TaskList: React.FC = () => {
         ({ id, dueDate, creationDate, description, completed }) => (
           <TaskItem
             key={id}
+            id={id}
             description={description}
             dueDate={dueDate as string}
             creationDate={creationDate}
