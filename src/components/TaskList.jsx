@@ -7,7 +7,7 @@ import AddTaskForm from './AddTaskForm';
 const TaskList = () => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks);
-  const [filter, setFilter] = useState('default'); // default, dateCreated, dateDue, state
+  const [filter, setFilter] = useState('default');
 
   useEffect(() => {
     dispatch(fetchTasks());
